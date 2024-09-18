@@ -1,0 +1,49 @@
+package CursoJava.heranca.model.staff;
+
+import CursoJava.heranca.model.business.Empregado;
+import java.text.NumberFormat;
+
+public class Vendedor extends Empregado {
+
+    private double valorVendas;
+    private double comissao;
+
+    public Vendedor(String nome, String endereco, String telefone, int codigoSetor, double salarioBase, double imposto,
+                    double valorVendas, double comissao) {
+        super(nome, endereco, telefone, codigoSetor, salarioBase, imposto);
+        this.valorVendas = valorVendas;
+        this.comissao = comissao;
+    }
+
+    public double getValorVendas() {
+        return valorVendas;
+    }
+
+    public void setValorVendas(double valorVendas) {
+        this.valorVendas = valorVendas;
+    }
+
+    public double getComissao() {
+        return comissao;
+    }
+
+    public void setComissao(double comissao) {
+        this.comissao = comissao;
+    }
+
+    @Override
+    public double calcularSalario(){
+        double resultadoValorImposto = salarioBase * (imposto / 100);
+        double resultadoSalario = salarioBase - resultadoValorImposto;
+        double resultadoComissao = valorVendas * (comissao / 100);
+        return resultadoSalario + resultadoComissao;
+    }
+
+    @Override
+    public String toString() {
+        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
+        return super.toString() +
+                "\n\tValor de vendas: " + currencyFormat.format(valorVendas)+
+                "\n\tComissão: " + comissao + "%";
+    }
+}
